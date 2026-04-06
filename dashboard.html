@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>My Dashboard — Smart Recycling Hub</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+<nav class="nav">
+  <div class="container nav-inner">
+    <a href="index.html" class="brand">
+      <div class="brand-logo"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M7 19H4a2 2 0 0 1-1.7-3l1.5-2.5"/><path d="m14 16-3 3 3 3"/><path d="M11 19h8a2 2 0 0 0 1.7-3l-1.5-2.5"/><path d="M21 11.5 19 8l-3.5 2"/><path d="m6 8 4 6"/><path d="m14 4-2.5-1.5L9 5"/></svg></div>
+      <div><div class="brand-name">Smart Recycling Hub</div><div class="brand-sub">South Africa</div></div>
+    </a>
+    <button class="menu-btn" onclick="document.querySelector('.nav-links').classList.toggle('open')">☰</button>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="rewards.html">Rewards</a>
+      <a href="partners.html">Partners</a>
+      <a href="#" onclick="resetDemo();return false" class="nav-cta">Reset Demo</a>
+    </div>
+  </div>
+</nav>
+
+<main class="dash-wrap">
+  <div class="container">
+
+    <!-- Header -->
+    <div class="dash-header">
+      <div class="welcome">
+        <div class="avatar">JH</div>
+        <div>
+          <h1>Sawubona, Joshua! 👋</h1>
+          <p>You've recycled <strong id="streakDays">7</strong> days in a row — keep it green.</p>
+        </div>
+      </div>
+      <div class="tier-badge"><span id="tierEmoji">🥈</span> <span id="tierName">Green Champion</span></div>
+    </div>
+
+    <!-- Quick stats -->
+    <div class="quick-stats">
+      <div class="qstat">
+        <div class="icon">⭐</div>
+        <div class="v"><span class="count" data-target="points">0</span></div>
+        <div class="l">Total Points</div>
+      </div>
+      <div class="qstat">
+        <div class="icon">📦</div>
+        <div class="v"><span id="itemsCount">0</span></div>
+        <div class="l">Items Recycled</div>
+      </div>
+      <div class="qstat">
+        <div class="icon">🌍</div>
+        <div class="v"><span id="co2">0</span> kg</div>
+        <div class="l">CO₂ Saved</div>
+      </div>
+      <div class="qstat">
+        <div class="icon">🔥</div>
+        <div class="v"><span id="streak">7</span> days</div>
+        <div class="l">Current Streak</div>
+      </div>
+    </div>
+
+    <!-- Activity + Rewards -->
+    <div class="dash-grid">
+      <div class="card">
+        <h2>Recycling Activity</h2>
+        <p class="sub">Your progress toward the next tier</p>
+        <div class="ring-wrap">
+          <div class="ring">
+            <svg width="180" height="180">
+              <defs>
+                <linearGradient id="gradGreen" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#7ed47a"/>
+                  <stop offset="100%" stop-color="#27632f"/>
+                </linearGradient>
+              </defs>
+              <circle class="bg" cx="90" cy="90" r="76" fill="none" stroke-width="14"/>
+              <circle class="fg" id="ringFg" cx="90" cy="90" r="76" fill="none" stroke-width="14"
+                      stroke-dasharray="477.5" stroke-dashoffset="477.5"/>
+            </svg>
+            <div class="ring-label">
+              <div>
+                <div class="pct"><span id="ringKg">0</span>kg</div>
+                <div class="sub">of <span id="ringTarget">75</span>kg</div>
+              </div>
+            </div>
+          </div>
+          <div class="ring-info">
+            <h3>Next stop: <span id="nextTier">Green Legend</span> 🥇</h3>
+            <p>Recycle <strong><span id="kgRemaining">41</span>kg more</strong> to unlock 50% bonus points and cash withdrawals.</p>
+          </div>
+        </div>
+
+        <h3 style="margin-top:30px;font-size:1rem">Material Breakdown</h3>
+        <div class="material-list" id="materialList"></div>
+      </div>
+
+      <div class="card">
+        <h2>Rewards Centre</h2>
+        <p class="sub">Redeem your points for real-world value</p>
+        <div class="points-display">
+          <div class="l">Available Points</div>
+          <div class="v"><span id="pointsBig">0</span></div>
+          <div class="l" style="opacity:.85">≈ R<span id="zarVal">0</span> in rewards</div>
+        </div>
+        <div class="rewards-grid" id="rewardsGrid"></div>
+      </div>
+    </div>
+
+    <!-- Simulator + Recent -->
+    <div class="dash-grid">
+      <div class="card">
+        <h2>♻️ Recycling Simulator</h2>
+        <p class="sub">Drag items into the bin (or tap them) — watch your points grow.</p>
+        <div class="sim">
+          <div class="sim-items" id="simItems"></div>
+          <div class="bin" id="bin">
+            <div>
+              <div class="b-title">SRH Smart Hub</div>
+              <div class="b-sub">Bree Taxi Rank · Active</div>
+            </div>
+            <div class="b-icon">🗑️</div>
+            <div>
+              <div class="b-counter">+<span id="binPoints">0</span></div>
+              <div class="b-counter-l">Session points</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>Recent Deposits</h2>
+        <p class="sub">Your latest contributions</p>
+        <div class="deposits" id="depositsList"></div>
+      </div>
+    </div>
+
+    <!-- Tiers -->
+    <div class="card" style="margin-bottom:24px">
+      <h2>Tier Progress</h2>
+      <p class="sub">Discovery-style benefits that grow with you</p>
+      <div class="tiers" id="tiersContainer"></div>
+    </div>
+
+    <!-- Leaderboard + Map -->
+    <div class="dash-grid">
+      <div class="card">
+        <h2>🏆 Community Leaderboard</h2>
+        <p class="sub">Top recyclers this month</p>
+        <div class="lb" id="leaderboard"></div>
+      </div>
+      <div class="card">
+        <h2>📍 Hub Locator</h2>
+        <p class="sub">SRH bins near you</p>
+        <div class="map" id="map">
+          <div class="map-legend">
+            <span><span class="d" style="background:#27632f"></span>Active</span>
+            <span><span class="d" style="background:#c4a23a"></span>Maint.</span>
+            <span><span class="d" style="background:#c45a3a"></span>Full</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</main>
+
+<div class="toast" id="toast"><span class="emoji">✅</span><span id="toastMsg">Redeemed!</span></div>
+
+<script src="js/dashboard.js"></script>
+</body>
+</html>

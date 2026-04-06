@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Smart Recycling Hub — Redefining Recycling in South Africa</title>
+<meta name="description" content="AI-powered smart recycling bins that reward South Africans for every item they recycle. Cash, airtime, groceries and more.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="container nav-inner">
+    <a href="index.html" class="brand">
+      <div class="brand-logo">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M7 19H4a2 2 0 0 1-1.7-3l1.5-2.5"/><path d="m14 16-3 3 3 3"/><path d="M11 19h8a2 2 0 0 0 1.7-3l-1.5-2.5"/><path d="M21 11.5 19 8l-3.5 2"/><path d="m6 8 4 6"/><path d="m14 4-2.5-1.5L9 5"/></svg>
+      </div>
+      <div>
+        <div class="brand-name">Smart Recycling Hub</div>
+        <div class="brand-sub">South Africa</div>
+      </div>
+    </a>
+    <button class="menu-btn" onclick="document.querySelector('.nav-links').classList.toggle('open')">☰</button>
+    <div class="nav-links">
+      <a href="#how">How It Works</a>
+      <a href="#features">Features</a>
+      <a href="rewards.html">Rewards</a>
+      <a href="partners.html">Partners</a>
+      <a href="dashboard.html" class="nav-cta">Open Dashboard →</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="container hero-grid">
+    <div class="reveal">
+      <span class="eyebrow">Redefining Recycling in South Africa</span>
+      <h1>Recycle. <span class="hl">Earn.</span> Repeat.</h1>
+      <p class="lead">Smart bins in your community that reward you for every item you recycle. Turn waste into real value — cash, airtime, groceries and more.</p>
+      <div class="hero-cta">
+        <a href="dashboard.html" class="btn btn-primary">Start Recycling →</a>
+        <a href="#how" class="btn btn-ghost">See How It Works</a>
+      </div>
+      <div class="stats-bar">
+        <div class="stat"><div class="num"><span class="count" data-to="10000">0</span>+</div><div class="lbl">Pilot Users</div></div>
+        <div class="stat"><div class="num"><span class="count" data-to="50">0</span>kg</div><div class="lbl">Avg / user / year</div></div>
+        <div class="stat"><div class="num"><span class="count" data-to="122">0</span>M t</div><div class="lbl">SA waste / year</div></div>
+      </div>
+    </div>
+    <div class="reveal">
+      <div class="orbit">
+        <div class="orbit-ring"></div>
+        <div class="orbit-ring inner"></div>
+        <div class="orbit-core">
+          <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 19H4a2 2 0 0 1-1.7-3l1.5-2.5"/><path d="m14 16-3 3 3 3"/><path d="M11 19h8a2 2 0 0 0 1.7-3l-1.5-2.5"/><path d="M21 11.5 19 8l-3.5 2"/><path d="m6 8 4 6"/><path d="m14 4-2.5-1.5L9 5"/></svg>
+        </div>
+        <div class="orbit-item i1">PET</div>
+        <div class="orbit-item i2">🥫</div>
+        <div class="orbit-item i3">📰</div>
+        <div class="orbit-item i4">🍾</div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- PROBLEM -->
+<section class="dark">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">The Problem</span>
+      <h2>South Africa's recycling crisis</h2>
+      <p>122 million tonnes of waste generated every year — and only a fraction ever gets recycled. The cost falls on the poorest communities.</p>
+    </div>
+    <div class="grid-4">
+      <div class="problem-card reveal"><div class="big">90%</div><h3>Wasted</h3><p>SA generates 122M tonnes of waste annually — only ~10% is formally recycled.</p></div>
+      <div class="problem-card reveal"><div class="big">R1k</div><h3>Dangerous Collection</h3><p>Homeless reclaimers haul waste along highways for around R1,000 per month.</p></div>
+      <div class="problem-card reveal"><div class="big">0</div><h3>No Infrastructure</h3><p>Low-income communities lack any formal access to recycling services.</p></div>
+      <div class="problem-card reveal"><div class="big">↓</div><h3>Pollution = Poverty</h3><p>Disadvantaged communities suffer disproportionately from waste & pollution.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section id="how">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">How It Works</span>
+      <h2>Four steps. Real rewards.</h2>
+      <p>Built for everyone — no smartphone, no ID, no friction.</p>
+    </div>
+    <div class="steps">
+      <div class="step reveal"><div class="step-num">1</div><h3>Find a Hub</h3><p>Locate an SRH bin at your nearest taxi rank, school, mall or market.</p></div>
+      <div class="step reveal"><div class="step-num">2</div><h3>Deposit & Scan</h3><p>Drop in PET, glass, paper, aluminium or mixed plastic. AI sorts it. Scan your QR card — no smartphone needed.</p></div>
+      <div class="step reveal"><div class="step-num">3</div><h3>Earn Points</h3><p>Every deposit grows your balance. The more you recycle, the higher your tier.</p></div>
+      <div class="step reveal"><div class="step-num">4</div><h3>Redeem Rewards</h3><p>Convert points to cash, airtime, data, grocery vouchers or transport credits.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section id="features" style="background:var(--cream-2)">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">Smart Features</span>
+      <h2>Not just a bin. A full ecosystem.</h2>
+    </div>
+    <div class="grid-3">
+      <div class="feature reveal"><div class="icon">🤖</div><h3>AI-Powered Sorting</h3><p>Conveyor belt and machine vision automatically distinguish recyclables from trash.</p></div>
+      <div class="feature reveal"><div class="icon">📱</div><h3>Inclusive QR Access</h3><p>No smartphone or ID required. QR cards and biometric options welcome everyone.</p></div>
+      <div class="feature reveal"><div class="icon">🔒</div><h3>Underground Storage</h3><p>Anti-tamper, high-capacity secure containers prevent vandalism and theft.</p></div>
+      <div class="feature reveal"><div class="icon">⚡</div><h3>Waste-to-Energy</h3><p>Non-recyclable materials are converted to clean, usable energy.</p></div>
+      <div class="feature reveal"><div class="icon">📍</div><h3>Strategic Placement</h3><p>Deployed at taxi ranks, schools, shopping centres and markets.</p></div>
+      <div class="feature reveal"><div class="icon">🖥️</div><h3>Education Displays</h3><p>Built-in screens share recycling tips in multiple South African languages.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- IMPACT -->
+<section class="dark">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">Impact</span>
+      <h2>Recycling that uplifts communities</h2>
+      <p>SRH isn't just sustainability theatre — it puts cash in pockets, creates jobs and reduces crime.</p>
+    </div>
+    <div class="impact-stats">
+      <div class="impact-stat reveal"><div class="v">50kg</div><div class="l">Avg per user / year</div></div>
+      <div class="impact-stat reveal"><div class="v">10M+</div><div class="l">Potential users</div></div>
+      <div class="impact-stat reveal"><div class="v">6–8%</div><div class="l">Annual industry growth</div></div>
+      <div class="impact-stat reveal"><div class="v">↓ Crime</div><div class="l">Through stable income</div></div>
+    </div>
+    <ul class="impact-list reveal">
+      <li>Removes reclaimers from dangerous highway collection</li>
+      <li>Puts cash directly into the poorest households</li>
+      <li>Boosts local spending in township economies</li>
+      <li>Reduces municipal landfill costs</li>
+      <li>Creates green jobs and circular-economy careers</li>
+      <li>Supports Extended Producer Responsibility (EPR) compliance</li>
+      <li>Generates supply for premium buyers like ECONYL</li>
+      <li>Provides tax-deductible recycling certificates</li>
+    </ul>
+  </div>
+</section>
+
+<!-- CTA -->
+<section>
+  <div class="container">
+    <div class="cta-band reveal">
+      <h2>Join the recycling revolution</h2>
+      <p>Whether you're a recycler, retailer, municipality or impact investor — there's a place for you in the SRH ecosystem.</p>
+      <div class="cta-buttons">
+        <a href="dashboard.html" class="btn btn-primary">Try the Dashboard →</a>
+        <a href="partners.html" class="btn btn-ghost" style="border-color:rgba(255,255,255,.3);color:#fff">Partner With Us</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="brand" style="margin-bottom:14px">
+          <div class="brand-logo"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M7 19H4a2 2 0 0 1-1.7-3l1.5-2.5"/><path d="m14 16-3 3 3 3"/><path d="M11 19h8a2 2 0 0 0 1.7-3l-1.5-2.5"/><path d="M21 11.5 19 8l-3.5 2"/><path d="m6 8 4 6"/><path d="m14 4-2.5-1.5L9 5"/></svg></div>
+          <div><div class="brand-name" style="color:#fff">Smart Recycling Hub</div><div class="brand-sub">South Africa</div></div>
+        </div>
+        <p style="font-size:.9rem;max-width:300px">AI-powered recycling that rewards every South African for building a cleaner future.</p>
+      </div>
+      <div><h4>Company</h4><ul><li><a href="#how">How It Works</a></li><li><a href="#features">Features</a></li><li><a href="rewards.html">Rewards</a></li></ul></div>
+      <div><h4>Partners</h4><ul><li><a href="partners.html">Municipalities</a></li><li><a href="partners.html">Retailers</a></li><li><a href="partners.html">Investors</a></li></ul></div>
+      <div><h4>Get Involved</h4><ul><li><a href="dashboard.html">Open Dashboard</a></li><li><a href="mailto:hello@srh.co.za">Contact</a></li><li><a href="partners.html">Become a Partner</a></li></ul></div>
+    </div>
+    <div class="footer-bottom">
+      <div>© 2025 Smart Recycling Hub. Developed by Joshua Haswell (ST10437907).</div>
+      <div>🌿 Built for a greener South Africa</div>
+    </div>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+</body>
+</html>
