@@ -268,9 +268,17 @@ function loadGoogleTranslate(){
     const st = document.createElement('style');
     st.id = 'gt-style-fix';
     st.textContent = `
-      .goog-te-banner-frame.skiptranslate, .goog-tooltip, .goog-tooltip:hover { display:none !important; }
-      body { top:0 !important; }
+      .goog-te-banner-frame.skiptranslate,
+      .goog-te-banner-frame,
+      .goog-tooltip, .goog-tooltip:hover,
+      .goog-te-balloon-frame,
+      #goog-gt-tt, .goog-te-spinner-pos,
+      iframe.goog-te-menu-frame,
+      iframe.skiptranslate { display:none !important; visibility:hidden !important; }
+      body { top:0 !important; position:static !important; }
       .goog-text-highlight { background:none !important; box-shadow:none !important; }
+      #google_translate_element { position:absolute !important; left:-9999px !important; top:-9999px !important; width:1px !important; height:1px !important; overflow:hidden !important; opacity:0 !important; pointer-events:none !important; }
+      .notranslate { unicode-bidi:isolate; }
     `;
     document.head.appendChild(st);
   }
@@ -281,13 +289,14 @@ function injectTools(){
   const nav = document.querySelector('.nav-links');
   if(!nav || document.getElementById('themeBtn')) return;
   const wrap = document.createElement('div');
-  wrap.className = 'tools';
+  wrap.className = 'tools notranslate';
+  wrap.setAttribute('translate','no');
   const theme = localStorage.getItem('srh_theme') || 'light';
   const lang = localStorage.getItem('srh_lang') || 'en';
   const meta = LANGS.find(l=>l.code===lang) || LANGS[0];
 
   const options = LANGS.map(l=>(
-    `<button type="button" class="lang-option" data-lang="${l.code}">
+    `<button type="button" class="lang-option notranslate" translate="no" data-lang="${l.code}">
        <span class="lo-flag">${l.flag}</span>
        <span class="lo-label">${l.label}</span>
        <span class="lo-code">${l.code.toUpperCase()}</span>
@@ -296,8 +305,8 @@ function injectTools(){
 
   wrap.innerHTML = `
     <div class="lang-wrap" id="langWrap">
-      <button class="tool-btn lang-btn" id="langBtn" title="Language" aria-haspopup="listbox" aria-expanded="false">${meta.flag} ${lang.toUpperCase()}</button>
-      <div class="lang-menu" id="langMenu" role="listbox">${options}</div>
+      <button class="tool-btn lang-btn notranslate" translate="no" id="langBtn" title="Language" aria-haspopup="listbox" aria-expanded="false">${meta.flag} ${lang.toUpperCase()}</button>
+      <div class="lang-menu notranslate" translate="no" id="langMenu" role="listbox">${options}</div>
     </div>
     <button class="tool-btn" id="themeBtn" onclick="toggleTheme()" title="Theme">${theme==='dark'?'☀️':'🌙'}</button>`;
   nav.insertBefore(wrap, nav.firstChild);
