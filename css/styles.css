@@ -16,7 +16,32 @@
   --shadow:0 10px 30px rgba(10,31,14,.12);
   --glow:0 0 0 4px rgba(82,176,58,.18);
   --radius:18px;
+  --bg:var(--cream);
+  --bg-2:var(--cream-2);
+  --surface:#ffffff;
+  --border:var(--sand);
+  --text:var(--ink);
+  --text-muted:var(--muted);
 }
+[data-theme="dark"]{
+  --bg:#07130a;
+  --bg-2:#0c1a10;
+  --surface:#102b16;
+  --border:rgba(255,255,255,.08);
+  --text:#e8f0ea;
+  --text-muted:#9fb3a3;
+  --cream:#07130a;
+  --cream-2:#0c1a10;
+  --sand:rgba(255,255,255,.08);
+  --ink:#e8f0ea;
+  --muted:#9fb3a3;
+  --shadow:0 10px 30px rgba(0,0,0,.5);
+}
+[data-theme="dark"] .nav{background:rgba(7,19,10,.78)}
+[data-theme="dark"] .feature,[data-theme="dark"] .partner,[data-theme="dark"] .step,[data-theme="dark"] .card,[data-theme="dark"] .qstat,[data-theme="dark"] .tier-card,[data-theme="dark"] .deposit,[data-theme="dark"] .lb-row,[data-theme="dark"] .point-row,[data-theme="dark"] .reward,[data-theme="dark"] .sim-item,[data-theme="dark"] .stats-bar{background:#102b16;color:#e8f0ea;border-color:rgba(255,255,255,.08)}
+[data-theme="dark"] body{background:#07130a;color:#e8f0ea}
+[data-theme="dark"] .hero{background:radial-gradient(1000px 500px at 80% 10%,rgba(82,176,58,.18),transparent 60%),#07130a}
+[data-theme="dark"] .map{background:linear-gradient(135deg,#0c1a10,#102b16)}
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
 body{
@@ -492,3 +517,82 @@ section{padding:96px 0}
 
 /* Counter animation utility */
 .count{display:inline-block}
+
+/* Theme & Lang switcher */
+.tools{display:flex;gap:8px;align-items:center;margin-right:6px}
+.tool-btn{
+  background:transparent;border:1.5px solid rgba(10,31,14,.18);
+  width:38px;height:38px;border-radius:50%;cursor:pointer;
+  display:grid;place-items:center;font-size:1rem;transition:.2s;
+  color:inherit;
+}
+.tool-btn:hover{border-color:var(--green-600);color:var(--green-600);transform:translateY(-1px)}
+.lang-btn{width:auto;padding:0 14px;font-size:.78rem;font-weight:700;letter-spacing:.04em;border-radius:999px}
+
+/* Donut chart */
+.donut-wrap{display:flex;align-items:center;gap:24px;margin-top:18px;flex-wrap:wrap}
+.donut{position:relative;width:180px;height:180px;flex-shrink:0}
+.donut-center{
+  position:absolute;inset:0;display:grid;place-items:center;text-align:center;
+  pointer-events:none;
+}
+.donut-center .v{font-family:'Syne',sans-serif;font-weight:800;font-size:1.6rem;color:var(--green-700);line-height:1}
+.donut-center .l{font-size:.72rem;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;margin-top:4px}
+.donut-legend{flex:1;min-width:160px;display:flex;flex-direction:column;gap:8px}
+.donut-legend .li{display:flex;align-items:center;gap:10px;font-size:.85rem}
+.donut-legend .d{width:12px;height:12px;border-radius:3px}
+.donut-legend .nm{flex:1;font-weight:500}
+.donut-legend .pc{color:var(--muted);font-weight:600}
+
+/* Level up overlay */
+.levelup{
+  position:fixed;inset:0;z-index:300;background:rgba(7,19,10,.85);
+  display:none;align-items:center;justify-content:center;
+  backdrop-filter:blur(8px);
+}
+.levelup.show{display:flex;animation:fadeIn .4s ease}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+.levelup-card{
+  background:linear-gradient(135deg,#1a4022,#0a1f0e);
+  border:2px solid var(--green-400);border-radius:24px;
+  padding:50px 60px;text-align:center;color:#fff;max-width:440px;
+  box-shadow:0 0 80px rgba(82,176,58,.4);
+  animation:popIn .6s cubic-bezier(.4,1.6,.6,1);
+}
+@keyframes popIn{from{transform:scale(.6);opacity:0}to{transform:scale(1);opacity:1}}
+.levelup-card .big{font-size:5rem;animation:spin2 1.4s ease}
+@keyframes spin2{from{transform:rotate(-180deg) scale(0)}to{transform:rotate(0) scale(1)}}
+.levelup-card h2{font-family:'Syne',sans-serif;font-size:2rem;color:#fff;margin:14px 0 8px}
+.levelup-card p{color:#9fb3a3;margin-bottom:24px}
+.levelup-card button{background:var(--green-500);color:#fff;border:0;padding:14px 32px;border-radius:999px;font-weight:700;cursor:pointer;font-size:1rem}
+.levelup-card button:hover{background:var(--green-400)}
+
+/* Confetti */
+.confetti{position:fixed;width:10px;height:14px;top:-20px;z-index:299;pointer-events:none;animation:fall 2.4s linear forwards}
+@keyframes fall{to{transform:translateY(110vh) rotate(720deg);opacity:0}}
+
+/* FAQ */
+.faq{display:flex;flex-direction:column;gap:12px;margin-top:24px}
+.faq details{
+  background:#fff;border:1px solid var(--sand);border-radius:14px;
+  padding:18px 22px;cursor:pointer;transition:.2s;
+}
+.faq details[open]{border-color:var(--green-400);box-shadow:var(--shadow)}
+.faq summary{font-weight:700;font-size:1rem;list-style:none;display:flex;justify-content:space-between;align-items:center}
+.faq summary::after{content:"+";font-size:1.4rem;color:var(--green-600);transition:.2s}
+.faq details[open] summary::after{transform:rotate(45deg)}
+.faq p{color:var(--muted);margin-top:12px;font-size:.94rem}
+
+/* About */
+.story{display:grid;grid-template-columns:1fr 1.4fr;gap:40px;align-items:start}
+@media(max-width:880px){.story{grid-template-columns:1fr}}
+.story-card{background:#fff;border:1px solid var(--sand);border-radius:var(--radius);padding:32px;box-shadow:var(--shadow)}
+.story-card .big-avatar{
+  width:120px;height:120px;border-radius:50%;
+  background:linear-gradient(135deg,var(--green-400),var(--green-700));
+  display:grid;place-items:center;color:#fff;font-family:'Syne',sans-serif;font-size:2.6rem;font-weight:800;
+  margin:0 auto 18px;box-shadow:0 0 0 6px rgba(82,176,58,.18);
+}
+.story-card h3{text-align:center;margin-bottom:4px}
+.story-card .role{text-align:center;color:var(--muted);font-size:.88rem;margin-bottom:18px}
+.story-card .meta{font-size:.85rem;color:var(--muted);text-align:center}

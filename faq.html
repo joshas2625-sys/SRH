@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>FAQ — Smart Recycling Hub</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+<nav class="nav">
+  <div class="container nav-inner">
+    <a href="index.html" class="brand">
+      <div class="brand-logo"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M7 19H4a2 2 0 0 1-1.7-3l1.5-2.5"/><path d="m14 16-3 3 3 3"/><path d="M11 19h8a2 2 0 0 0 1.7-3l-1.5-2.5"/><path d="M21 11.5 19 8l-3.5 2"/><path d="m6 8 4 6"/><path d="m14 4-2.5-1.5L9 5"/></svg></div>
+      <div><div class="brand-name">Smart Recycling Hub</div><div class="brand-sub">South Africa</div></div>
+    </a>
+    <button class="menu-btn" onclick="document.querySelector('.nav-links').classList.toggle('open')">☰</button>
+    <div class="nav-links">
+      <a href="index.html" data-i18n="home">Home</a>
+      <a href="rewards.html" data-i18n="rewards">Rewards</a>
+      <a href="partners.html" data-i18n="partners">Partners</a>
+      <a href="about.html" data-i18n="about">About</a>
+      <a href="faq.html" data-i18n="faq">FAQ</a>
+      <a href="dashboard.html" class="nav-cta" data-i18n="open_dash">Open Dashboard →</a>
+    </div>
+  </div>
+</nav>
+
+<section style="padding-top:160px">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">Frequently Asked</span>
+      <h2>Questions, answered.</h2>
+      <p>Everything you need to know about how SRH works for users, communities and partners.</p>
+    </div>
+    <div class="faq">
+      <details open><summary>Do I need a smartphone to use SRH?</summary><p>No. SRH is designed for inclusivity. You get a free QR card at any hub, or you can use biometric (fingerprint) access. No phone, data or ID required.</p></details>
+      <details><summary>What can I deposit?</summary><p>PET bottles, glass bottles and jars, paper, newspaper, cardboard, aluminium cans and mixed plastic. Our AI conveyor system sorts everything automatically.</p></details>
+      <details><summary>How fast do I get my rewards?</summary><p>Instantly. The moment your items are sorted, points hit your account. You can redeem cash, airtime, data, transport credits or grocery vouchers right at the hub or via SMS.</p></details>
+      <details><summary>How are points calculated?</summary><p>Each material has a points value (PET = 2, Glass = 3, Aluminium = 4, Newspaper = 5, Mixed Plastic = 1). Higher tiers earn 25–50% bonus points on every deposit.</p></details>
+      <details><summary>Where are the bins located?</summary><p>SRH bins are placed in high-traffic public areas: taxi ranks, schools, shopping centres, university campuses, train stations and informal markets — places people pass through daily.</p></details>
+      <details><summary>Are the bins safe from vandalism?</summary><p>Yes. Storage is underground in tamper-proof containers. Above ground there's only the deposit slot, scanner and education display.</p></details>
+      <details><summary>What happens to non-recyclables?</summary><p>Anything that can't be recycled is converted to clean energy through our waste-to-energy partners — nothing is wasted.</p></details>
+      <details><summary>How does SRH help waste-pickers?</summary><p>We work with reclaimer co-operatives to formalise their work. Pickers can become hub stewards, sorters and trainers — earning a steady, dignified income off the highways.</p></details>
+      <details><summary>Can businesses or schools host a hub?</summary><p>Absolutely. Visit the Partners page or email <a href="mailto:partners@srh.co.za">partners@srh.co.za</a> to discuss hosting an SRH bin at your site.</p></details>
+      <details><summary>Is my data private?</summary><p>Yes. Personal info is encrypted and never sold. We only license anonymised, aggregated recycling-behaviour insights — never individual data.</p></details>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-bottom">
+      <div>© 2025 Smart Recycling Hub. Developed by Joshua Haswell (ST10437907).</div>
+      <div>🌿 Built for a greener South Africa</div>
+    </div>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+</body>
+</html>

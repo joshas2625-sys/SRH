@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>About — Smart Recycling Hub</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+<nav class="nav">
+  <div class="container nav-inner">
+    <a href="index.html" class="brand">
+      <div class="brand-logo"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M7 19H4a2 2 0 0 1-1.7-3l1.5-2.5"/><path d="m14 16-3 3 3 3"/><path d="M11 19h8a2 2 0 0 0 1.7-3l-1.5-2.5"/><path d="M21 11.5 19 8l-3.5 2"/><path d="m6 8 4 6"/><path d="m14 4-2.5-1.5L9 5"/></svg></div>
+      <div><div class="brand-name">Smart Recycling Hub</div><div class="brand-sub">South Africa</div></div>
+    </a>
+    <button class="menu-btn" onclick="document.querySelector('.nav-links').classList.toggle('open')">☰</button>
+    <div class="nav-links">
+      <a href="index.html" data-i18n="home">Home</a>
+      <a href="rewards.html" data-i18n="rewards">Rewards</a>
+      <a href="partners.html" data-i18n="partners">Partners</a>
+      <a href="about.html" data-i18n="about">About</a>
+      <a href="faq.html" data-i18n="faq">FAQ</a>
+      <a href="dashboard.html" class="nav-cta" data-i18n="open_dash">Open Dashboard →</a>
+    </div>
+  </div>
+</nav>
+
+<section style="padding-top:160px">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">Our Story</span>
+      <h2>Built by a student. For a continent.</h2>
+      <p>SRH was born out of a simple question: why are the people doing the most for South Africa's environment paid the least and protected the least?</p>
+    </div>
+    <div class="story">
+      <div class="story-card reveal">
+        <div class="big-avatar">JH</div>
+        <h3>Joshua Haswell</h3>
+        <div class="role">Founder & Developer</div>
+        <div class="meta">ST10437907 · IIE Varsity College<br>ENTP6211w Entrepreneurship</div>
+      </div>
+      <div class="reveal">
+        <p style="font-size:1.05rem;color:var(--muted);margin-bottom:18px">Every morning on the way to campus I'd pass reclaimers pushing trolleys piled three metres high along the N1 — risking their lives for around <strong>R1,000 a month</strong>. Meanwhile, the country was burying 90% of its recyclable waste.</p>
+        <p style="color:var(--muted);margin-bottom:18px">SRH started as a feasibility study for my entrepreneurship module. It grew into a full business model: <strong>AI-powered smart bins</strong> placed where people already gather — taxi ranks, schools, malls, markets — that pay users instantly in rewards they actually need.</p>
+        <p style="color:var(--muted);margin-bottom:18px">No smartphone required. No ID required. No middlemen. Just deposit, scan, earn.</p>
+        <p style="color:var(--muted)">The mission is simple: <strong>turn every South African into a recycler</strong> — and turn every kilogram of waste into dignity, income and a cleaner future.</p>
+        <div style="margin-top:24px;display:flex;gap:12px;flex-wrap:wrap">
+          <a href="dashboard.html" class="btn btn-primary">Try the Product →</a>
+          <a href="partners.html" class="btn btn-ghost">Partner With Us</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="dark">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">Milestones</span>
+      <h2>From idea to pilot</h2>
+    </div>
+    <div class="grid-4">
+      <div class="problem-card reveal"><div class="big">2024</div><h3>Concept</h3><p>Feasibility study and business model canvas drafted at IIE Varsity College.</p></div>
+      <div class="problem-card reveal"><div class="big">2025</div><h3>Prototype</h3><p>Interactive product demo and partner outreach in Gauteng.</p></div>
+      <div class="problem-card reveal"><div class="big">2026</div><h3>Pilot</h3><p>10 bins, 10,000 users, 5 cities — full real-world data collection.</p></div>
+      <div class="problem-card reveal"><div class="big">2027+</div><h3>Scale</h3><p>National rollout with municipal and EPR-funded partners.</p></div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-bottom">
+      <div>© 2025 Smart Recycling Hub. Developed by Joshua Haswell (ST10437907).</div>
+      <div>🌿 Built for a greener South Africa</div>
+    </div>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+</body>
+</html>

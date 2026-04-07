@@ -57,7 +57,42 @@ const SIM_ITEMS = [
   {id:'glass', emoji:'🍾', label:'Glass Bottle',   pts:3, mat:'Glass Bottle',  color:'#52b03a', kg:0.4,  ico:'GL'},
   {id:'paper', emoji:'📰', label:'Newspaper',      pts:5, mat:'Newspaper',     color:'#7ed47a', kg:0.3,  ico:'PA'},
   {id:'can',   emoji:'🥫', label:'Aluminium Can',  pts:4, mat:'Aluminium Can', color:'#c0a062', kg:0.02, ico:'AL'},
+  {id:'box',   emoji:'📦', label:'Cardboard Box',  pts:3, mat:'Cardboard',     color:'#c0a062', kg:0.5,  ico:'CB'},
+  {id:'jar',   emoji:'🫙', label:'Glass Jar',      pts:3, mat:'Glass Jar',     color:'#52b03a', kg:0.35, ico:'GJ'},
 ];
+
+// ===== Sound (Web Audio) =====
+let audioCtx;
+function beep(freq=523, dur=0.12, type='sine', vol=0.12){
+  try{
+    if(!audioCtx) audioCtx = new (window.AudioContext||window.webkitAudioContext)();
+    const o = audioCtx.createOscillator(), g = audioCtx.createGain();
+    o.type = type; o.frequency.value = freq;
+    g.gain.value = vol;
+    o.connect(g); g.connect(audioCtx.destination);
+    o.start();
+    g.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + dur);
+    o.stop(audioCtx.currentTime + dur);
+  }catch(e){}
+}
+function dropSound(){ beep(660,.1); setTimeout(()=>beep(880,.14),80); }
+function redeemSound(){ beep(523,.1); setTimeout(()=>beep(659,.1),90); setTimeout(()=>beep(784,.18),180); }
+function levelSound(){ [523,659,784,1047].forEach((f,i)=>setTimeout(()=>beep(f,.18,'triangle',.15),i*120)); }
+
+// ===== Confetti =====
+function confetti(){
+  const colors = ['#52b03a','#7ed47a','#c0a062','#3b8f3a','#fdfcf8'];
+  for(let i=0;i<60;i++){
+    const c = document.createElement('div');
+    c.className = 'confetti';
+    c.style.left = Math.random()*100+'vw';
+    c.style.background = colors[i%colors.length];
+    c.style.animationDelay = Math.random()*0.6+'s';
+    c.style.animationDuration = (1.6+Math.random()*1.6)+'s';
+    document.body.appendChild(c);
+    setTimeout(()=>c.remove(),3500);
+  }
+}
 
 // ===== Hubs =====
 const HUBS = [
@@ -97,15 +132,8 @@ function renderAll(){
   document.getElementById('streakDays').textContent = state.streak;
   document.getElementById('zarVal').textContent = Math.floor(state.points/10);
 
-  // materials
-  const ml = document.getElementById('materialList');
-  ml.innerHTML = Object.values(state.materials).map(m=>`
-    <div class="mat">
-      <div class="dot" style="background:${m.color}"></div>
-      <div class="name">${m.name}</div>
-      <div class="bar"><span style="width:${m.pct}%;background:${m.color}"></span></div>
-      <div class="pct">${m.pct}%</div>
-    </div>`).join('');
+  // donut chart
+  renderDonut();
 
   // rewards
   const rg = document.getElementById('rewardsGrid');
@@ -200,6 +228,27 @@ function renderAll(){
   saveState();
 }
 
+function renderDonut(){
+  const svg = document.getElementById('donutSvg');
+  if(!svg) return;
+  const cx=90, cy=90, r=64, sw=22;
+  const mats = Object.values(state.materials);
+  const total = mats.reduce((s,m)=>s+m.pct,0) || 1;
+  let acc = 0;
+  const C = 2*Math.PI*r;
+  svg.innerHTML = `<circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="#eaf2eb" stroke-width="${sw}"/>` +
+    mats.map(m=>{
+      const frac = m.pct/total;
+      const dash = C*frac;
+      const offset = -C*acc/total;
+      acc += m.pct;
+      return `<circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="${m.color}" stroke-width="${sw}" stroke-dasharray="${dash} ${C-dash}" stroke-dashoffset="${offset}" transform="rotate(-90 ${cx} ${cy})" style="transition:.6s"/>`;
+    }).join('');
+  document.getElementById('donutTotal').textContent = state.kgRecycled.toFixed(0)+'kg';
+  document.getElementById('donutLegend').innerHTML = mats.map(m=>`
+    <div class="li"><div class="d" style="background:${m.color}"></div><div class="nm">${m.name}</div><div class="pc">${m.pct}%</div></div>`).join('');
+}
+
 function depositItem(id, sourceEl){
   const it = SIM_ITEMS.find(x=>x.id===id);
   if(!it) return;
@@ -221,14 +270,23 @@ function depositItem(id, sourceEl){
     setTimeout(()=>fly.remove(),900);
   }
   setTimeout(()=>{
+    const beforeTier = currentTier().key;
     state.points += it.pts;
     state.itemsRecycled += 1;
     state.kgRecycled = +(state.kgRecycled + it.kg).toFixed(2);
     sessionBinPoints += it.pts;
     document.getElementById('binPoints').textContent = sessionBinPoints;
     state.deposits.unshift({date:'Just now', mat:it.mat, pts:it.pts, color:it.color, icon:it.ico});
+    dropSound();
     renderAll();
     toast(it.emoji, `+${it.pts} points · ${it.mat}`);
+    const afterTier = currentTier();
+    if(afterTier.key !== beforeTier){
+      document.getElementById('levelEmoji').textContent = afterTier.emoji;
+      document.getElementById('levelName').textContent = afterTier.name;
+      document.getElementById('levelup').classList.add('show');
+      levelSound(); confetti();
+    }
   },650);
 }
 
@@ -236,6 +294,7 @@ function redeem(i){
   const r = REWARDS[i];
   if(state.points < r.cost) return;
   state.points -= r.cost;
+  redeemSound();
   renderAll();
   toast(r.emoji, `Redeemed: ${r.name}`);
 }

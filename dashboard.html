@@ -19,9 +19,11 @@
     </a>
     <button class="menu-btn" onclick="document.querySelector('.nav-links').classList.toggle('open')">☰</button>
     <div class="nav-links">
-      <a href="index.html">Home</a>
-      <a href="rewards.html">Rewards</a>
-      <a href="partners.html">Partners</a>
+      <a href="index.html" data-i18n="home">Home</a>
+      <a href="rewards.html" data-i18n="rewards">Rewards</a>
+      <a href="partners.html" data-i18n="partners">Partners</a>
+      <a href="about.html" data-i18n="about">About</a>
+      <a href="faq.html" data-i18n="faq">FAQ</a>
       <a href="#" onclick="resetDemo();return false" class="nav-cta">Reset Demo</a>
     </div>
   </div>
@@ -98,7 +100,13 @@
         </div>
 
         <h3 style="margin-top:30px;font-size:1rem">Material Breakdown</h3>
-        <div class="material-list" id="materialList"></div>
+        <div class="donut-wrap">
+          <div class="donut">
+            <svg id="donutSvg" width="180" height="180" viewBox="0 0 180 180"></svg>
+            <div class="donut-center"><div><div class="v" id="donutTotal">0kg</div><div class="l">Total</div></div></div>
+          </div>
+          <div class="donut-legend" id="donutLegend"></div>
+        </div>
       </div>
 
       <div class="card">
@@ -173,6 +181,16 @@
 
 <div class="toast" id="toast"><span class="emoji">✅</span><span id="toastMsg">Redeemed!</span></div>
 
+<div class="levelup" id="levelup">
+  <div class="levelup-card">
+    <div class="big" id="levelEmoji">🥇</div>
+    <h2>Level Up!</h2>
+    <p>You've reached <strong id="levelName">Green Legend</strong>. Your bonus points and rewards just got bigger.</p>
+    <button onclick="document.getElementById('levelup').classList.remove('show')">Awesome!</button>
+  </div>
+</div>
+
+<script src="js/main.js"></script>
 <script src="js/dashboard.js"></script>
 </body>
 </html>
