@@ -169,8 +169,37 @@ function t(key, lang){
   return (I18N[L] && I18N[L][key]) || (I18N.en && I18N.en[key]) || key;
 }
 
+// Map our internal codes to Google Translate language codes.
+// Languages without Google Translate support fall back to a closely related one.
+const GOOGLE_LANG_MAP = {
+  en:'en', zu:'zu', xh:'xh', af:'af', st:'st', tn:'tn',
+  ts:'ts', ve:'en', nr:'zu', ss:'zu', nso:'st',
+  fr:'fr', pt:'pt'
+};
+
+function setGoogTransCookie(target){
+  const value = '/en/' + target;
+  // Set on current host and parent domain so it survives navigation.
+  const host = location.hostname;
+  document.cookie = 'googtrans=' + value + ';path=/';
+  if(host && host.indexOf('.') !== -1){
+    document.cookie = 'googtrans=' + value + ';path=/;domain=' + host;
+    document.cookie = 'googtrans=' + value + ';path=/;domain=.' + host;
+  }
+}
+
+function clearGoogTransCookie(){
+  const host = location.hostname;
+  document.cookie = 'googtrans=;path=/;expires=Thu, 01 Jan 1970 00:00:00 GMT';
+  if(host && host.indexOf('.') !== -1){
+    document.cookie = 'googtrans=;path=/;domain=' + host + ';expires=Thu, 01 Jan 1970 00:00:00 GMT';
+    document.cookie = 'googtrans=;path=/;domain=.' + host + ';expires=Thu, 01 Jan 1970 00:00:00 GMT';
+  }
+}
+
 function setLang(lang){
   if(!I18N[lang]) lang = 'en';
+  const prev = localStorage.getItem('srh_lang') || 'en';
   localStorage.setItem('srh_lang', lang);
   document.documentElement.setAttribute('lang', lang);
   document.querySelectorAll('[data-i18n]').forEach(el=>{
@@ -185,6 +214,20 @@ function setLang(lang){
       if(a && k) el.setAttribute(a, t(k, lang));
     });
   });
+
+  // Drive Google Translate so the ENTIRE page (not just tagged strings) flips language.
+  const gLang = GOOGLE_LANG_MAP[lang] || 'en';
+  if(gLang === 'en'){
+    clearGoogTransCookie();
+  } else {
+    setGoogTransCookie(gLang);
+  }
+  // Reload so Google Translate picks up the new cookie and translates the whole page.
+  if(lang !== prev){
+    location.reload();
+    return;
+  }
+
   const btn = document.getElementById('langBtn');
   if(btn){
     const meta = LANGS.find(l=>l.code===lang) || LANGS[0];
@@ -195,6 +238,45 @@ function setLang(lang){
   });
 }
 window.setLang = setLang;
+
+// ===== Google Translate loader =====
+function loadGoogleTranslate(){
+  if(document.getElementById('google_translate_element')) return;
+  const host = document.createElement('div');
+  host.id = 'google_translate_element';
+  host.style.cssText = 'position:absolute;left:-9999px;top:-9999px;width:1px;height:1px;overflow:hidden;';
+  document.body.appendChild(host);
+
+  window.googleTranslateElementInit = function(){
+    /* global google */
+    new google.translate.TranslateElement({
+      pageLanguage: 'en',
+      includedLanguages: 'af,zu,xh,st,tn,ts,fr,pt',
+      autoDisplay: false,
+      layout: google.translate.TranslateElement.InlineLayout.SIMPLE
+    }, 'google_translate_element');
+  };
+
+  if(!document.querySelector('script[data-gt]')){
+    const s = document.createElement('script');
+    s.src = '//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit';
+    s.async = true;
+    s.setAttribute('data-gt','1');
+    document.head.appendChild(s);
+  }
+
+  // Hide the Google Translate top banner / tooltip artifacts.
+  if(!document.getElementById('gt-style-fix')){
+    const st = document.createElement('style');
+    st.id = 'gt-style-fix';
+    st.textContent = `
+      .goog-te-banner-frame.skiptranslate, .goog-tooltip, .goog-tooltip:hover { display:none !important; }
+      body { top:0 !important; }
+      .goog-text-highlight { background:none !important; box-shadow:none !important; }
+    `;
+    document.head.appendChild(st);
+  }
+}
 
 // ===== Inject tools (theme + lang) into nav =====
 function injectTools(){
@@ -236,5 +318,10 @@ function injectTools(){
   });
 
   setLang(lang);
+  loadGoogleTranslate();
 }
-injectTools();
+if(document.readyState === 'loading'){
+  document.addEventListener('DOMContentLoaded', injectTools);
+} else {
+  injectTools();
+}
