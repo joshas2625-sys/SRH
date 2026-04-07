@@ -177,24 +177,26 @@ const GOOGLE_LANG_MAP = {
   fr:'fr', pt:'pt'
 };
 
-function setGoogTransCookie(target){
-  const value = '/en/' + target;
-  // Set on current host and parent domain so it survives navigation.
-  const host = location.hostname;
-  document.cookie = 'googtrans=' + value + ';path=/';
-  if(host && host.indexOf('.') !== -1){
-    document.cookie = 'googtrans=' + value + ';path=/;domain=' + host;
-    document.cookie = 'googtrans=' + value + ';path=/;domain=.' + host;
-  }
+// Wait for the Google Translate widget's hidden <select> to appear, then resolve with it.
+function whenGTComboReady(timeoutMs){
+  return new Promise((resolve, reject)=>{
+    const start = Date.now();
+    (function poll(){
+      const sel = document.querySelector('select.goog-te-combo');
+      if(sel) return resolve(sel);
+      if(Date.now() - start > (timeoutMs || 8000)) return reject(new Error('goog-te-combo not ready'));
+      setTimeout(poll, 80);
+    })();
+  });
 }
 
-function clearGoogTransCookie(){
-  const host = location.hostname;
-  document.cookie = 'googtrans=;path=/;expires=Thu, 01 Jan 1970 00:00:00 GMT';
-  if(host && host.indexOf('.') !== -1){
-    document.cookie = 'googtrans=;path=/;domain=' + host + ';expires=Thu, 01 Jan 1970 00:00:00 GMT';
-    document.cookie = 'googtrans=;path=/;domain=.' + host + ';expires=Thu, 01 Jan 1970 00:00:00 GMT';
-  }
+// Drive Google Translate by programmatically changing its combo <select>.
+// No cookies, no reload — works on file://, localhost and any host.
+function applyGoogleTranslate(targetLang){
+  whenGTComboReady().then(sel=>{
+    sel.value = targetLang || '';
+    sel.dispatchEvent(new Event('change'));
+  }).catch(()=>{});
 }
 
 function setLang(lang){
@@ -215,17 +217,13 @@ function setLang(lang){
     });
   });
 
-  // Drive Google Translate so the ENTIRE page (not just tagged strings) flips language.
+  // Drive Google Translate so the ENTIRE page flips language (not only tagged strings).
   const gLang = GOOGLE_LANG_MAP[lang] || 'en';
   if(gLang === 'en'){
-    clearGoogTransCookie();
+    // Restore original: calling the combo with '' and firing change puts the page back to English.
+    applyGoogleTranslate('');
   } else {
-    setGoogTransCookie(gLang);
-  }
-  // Reload so Google Translate picks up the new cookie and translates the whole page.
-  if(lang !== prev){
-    location.reload();
-    return;
+    applyGoogleTranslate(gLang);
   }
 
   const btn = document.getElementById('langBtn');
@@ -251,7 +249,7 @@ function loadGoogleTranslate(){
     /* global google */
     new google.translate.TranslateElement({
       pageLanguage: 'en',
-      includedLanguages: 'af,zu,xh,st,tn,ts,fr,pt',
+      includedLanguages: 'af,zu,xh,st,tn,ts,fr,pt,en',
       autoDisplay: false,
       layout: google.translate.TranslateElement.InlineLayout.SIMPLE
     }, 'google_translate_element');
@@ -317,8 +315,8 @@ function injectTools(){
     opt.addEventListener('click', ()=>{ setLang(opt.dataset.lang); close(); });
   });
 
-  setLang(lang);
   loadGoogleTranslate();
+  setLang(lang);
 }
 if(document.readyState === 'loading'){
   document.addEventListener('DOMContentLoaded', injectTools);
